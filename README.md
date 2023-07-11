@@ -1,3 +1,9 @@
+<table align="center">
+  <tr>
+    <th>Entire assignment is repost from my other profile</th>
+  </tr>
+</table>
+
 # Webte2 Semestralny projekt
 
 ## Linky
