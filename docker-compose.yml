@@ -1,0 +1,45 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: lol
+      MYSQL_DATABASE: semestralne_zadanie
+      MYSQL_USER: webte
+      MYSQL_PASSWORD: webte
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+  frontend:
+#    ports:
+#      - '3000:80'
+    build:
+      context: ./frontend
+    image: fastkiller/webte2:frontend
+    depends_on:
+      - backend
+  backend:
+#    ports:
+#      - '3001:80'
+    build:
+      context: ./backend
+    image: fastkiller/webte2:backend
+    depends_on:
+      - mysql
+  validator:
+    build:
+      context: ./validator
+    image: fastkiller/webte2:validator
+  nginx:
+    image: nginx:latest
+    ports:
+      - '8080:80'
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
+      - backend
+volumes:
+  mysql_data:
